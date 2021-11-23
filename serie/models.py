@@ -10,7 +10,7 @@ class Anime(models.Model):
         return self.titulo
 
     titulo = models.CharField(max_length = 255)
-    data_lancamento = models.DateTimeField()
+    data_lancamento = models.DateField()
     descricao = models.TextField()
     categoria = models.CharField(max_length= 50)
 

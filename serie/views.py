@@ -36,7 +36,9 @@ def cadastrarAnime(request):
     categoria = request.POST.get("categoria")
     descricao = request.POST.get("descricao")
 
-    tituloConsulta = Anime.objects.raw(f"SELECT * FROM serie_anime WHERE titulo = {titulo}")
+    tituloConsulta = Anime.objects.raw(f"SELECT titulo FROM serie_anime WHERE titulo = {titulo}")
+
+    print("\n\n\n\n\n\n\n\n\n",titulo,"\n\n\n\n\n\n\n\n", tituloConsulta)
 
     if titulo == tituloConsulta:
         return render(request, 'serie/cadastrar_anime.html')
@@ -69,3 +71,5 @@ def episodio(request, episodio_id):
     episodio = Episodio.objects.get(id = episodio_id)
     episodios = Episodio.objects.raw(f'SELECT * FROM serie_Episodio WHERE animeEpisodio_id = {episodio_id} ORDER BY numeroEpisodio')
     return render(request, 'serie/episodio.html', {'episodio':episodio,'episodios':episodios})
+
+
