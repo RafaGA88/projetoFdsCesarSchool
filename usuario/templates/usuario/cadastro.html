@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'usuario/cadastro.css'%}" rel="stylesheet">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="form">
+        <form method="POST" action="{% url 'cadastro'%}">
+            {% csrf_token %}
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" value="Digite seu nome..."><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="Digite seu email..."><br><br>
+            <label for="senha">Senha:</label><br>
+            <input type="password" id="senha" name="senha" value="Digite sua senha..."><br><br>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</body>
+</html>

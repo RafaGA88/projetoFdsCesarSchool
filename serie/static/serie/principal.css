@@ -1,0 +1,17 @@
+.table{
+    text-align: center;
+    width: 100%;
+    border: 1px solid black;
+}
+h1{
+    text-align: center;
+}
+
+th, td{
+    border: 1px solid black;
+    text-align: center;
+}
+
+a{
+    text-align: center;
+}

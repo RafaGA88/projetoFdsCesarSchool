@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url("{% static 'serie/foto.jpg' %}");
+            background-repeat: no-repeat;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+        }
+        .backDoidera{
+            background-color: black;
+            opacity: 0.8;
+            background-repeat: no-repeat;
+            max-width: 70%;
+            margin-left: 15%;
+            padding: 2%;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'principal' %}">My Tomatoes List</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Alterna navegação">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{% url 'cadastrarAnime'%}">Cadastrar Anime <span class="sr-only">(Página atual)</span></a>
+          </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="margin-right: 730px;">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="{% url 'cadastrarEpisodio'%}">Cadastrar um Episódio <span class="sr-only">(Página atual)</span></a>
+            </div>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="{% url 'listagem'%}">Listar todos os Animes <span class="sr-only">(Página atual)</span></a>
+            </div>
+          </div>
+      </nav>
+
+    <br><br><br>
+
+    <div class="backDoidera">
+        <h1 style="text-align: center;">Cadastrar Episódio</h1>
+
+    <form>
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Nome do Episódio:</label>
+            <input type="text" class="form-control" name="nome" placeholder="Digite o nome do episódio...">
+        </div>
+        <div class="form-group">
+            <label>Número do Episódio</label>
+            <input type="number" class="form-control" name="numeroEpisodio" placeholder="Digite o número do Episódio...">
+        </div>
+        <div class="form-group">
+            <label>Qual o anime referente ao Episódio?</label>
+            <input type="number" class="form-control" name="animeEpisodio" placeholder="Digite o anime referente ao Episódio...">
+        </div>
+        <div class="form-group">
+            <label>Upload do Vídeo:</label>
+            <input type="file" class="form-control-file" name="video">
+            <small style="color: red;">OBS: O arquivo só pode ser carregado em MP4!</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+    </div>
+
+    
+</body>
+</html>
