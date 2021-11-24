@@ -1,14 +1,23 @@
 from django.shortcuts import redirect, render
 from . models import Anime, Comentario, Episodio
+from datetime import date
 
 
 def index(request):
-    animeSelecionados = Anime.objects.raw('SELECT * FROM serie_Anime WHERE titulo = "Naruto"')
+    animeSelecionados = Anime.objects.raw('SELECT * FROM serie_Anime WHERE categoria = "Ação" OR categoria = "Aventura" or categoria = "Terror"')
     return render(request, 'serie/principal.html',{'animes':animeSelecionados})
+
+
+
+
 
 def listagem(request):
     animes = Anime.objects.raw('SELECT * FROM serie_Anime ORDER BY titulo')
     return render(request, 'serie/listagem.html',{'animes':animes})
+
+
+
+
 
 def anime(request, anime_id):
     anime = Anime.objects.get(id = anime_id)
@@ -27,6 +36,9 @@ def anime(request, anime_id):
 
     return render(request, 'serie/anime.html', {'anime':anime, 'episodios':episodios, 'comentarios':comentarios})
 
+
+
+
 def cadastrarAnime(request):
     if request.method != "POST":    
         return render(request, 'serie/cadastrar_anime.html')
@@ -36,36 +48,89 @@ def cadastrarAnime(request):
     categoria = request.POST.get("categoria")
     descricao = request.POST.get("descricao")
 
-    tituloConsulta = Anime.objects.raw(f"SELECT titulo FROM serie_anime WHERE titulo = {titulo}")
 
-    print("\n\n\n\n\n\n\n\n\n",titulo,"\n\n\n\n\n\n\n\n", tituloConsulta)
-
-    if titulo == tituloConsulta:
+    #Script for itens NULL
+    if titulo == None and data == None and categoria == None and descricao == None:
         return render(request, 'serie/cadastrar_anime.html')
+
+
+    #Script consult "titulo"
+    try:
+        tituloConsulta = Anime.objects.get(titulo = titulo)
+    except Anime.DoesNotExist:
+        tituloConsulta = False
+
+    if tituloConsulta:
+        return render(request, 'serie/cadastrar_anime.html')
+
+
+    #Script convert date
+    dataValida = str(data)
+    dataValida = dataValida.split("-")
+    dataToday = str(date.today())
+    dataToday = (dataToday).split("-")
+
+    dataValida = int("".join(dataValida))
+    dataToday = int("".join(dataToday))
+
+    if dataValida >= dataToday:
+        return render(request, 'serie/cadastrar_anime.html')
+
     
+    #Create Elements
     anime = Anime(titulo = titulo, data_lancamento = data, categoria = categoria, descricao = descricao)
     anime.save()
 
     return redirect('listagem')
 
+
+    
+
+
 def cadastrarEpisodio(request):
 
+
+    todosAnimes = Anime.objects.all()
+
+
     if request.method != 'POST':
-        return render(request, 'serie/cadastrar_episodio.html')
+        return render(request, 'serie/cadastrar_episodio.html' ,{'todosAnimes':todosAnimes})
     
+
     nome = request.POST.get("nome")
     numeroEpisodio = request.POST.get("numeroEpisodio")
     animeEpisodio = request.POST.get("animeEpisodio")
     video = request.POST.get("video")
 
-    animeConsultado = Anime.objects.get(id = animeEpisodio)
 
-    episodio = Episodio(nome = nome, numeroEpisodio = numeroEpisodio, video = video, animeEpisodio = animeConsultado, fillerOuCanon = True)
+    #Taking the object from the varieble(str) 'animeEpisodio'
+    objeto = Anime.objects.get(titulo = animeEpisodio)
+
+
+    #Script for itens NULL
+    if nome == None and numeroEpisodio == None and animeEpisodio == None and video == None:
+        return render(request, 'serie/cadastrar_anime.html')
+
+
+    #Script for consults if "Episódio" exists
+    try:
+        episodioConsulta = Episodio.objects.get(numeroEpisodio = numeroEpisodio, animeEpisodio = objeto)
+    except Episodio.DoesNotExist:
+        episodioConsulta = False
+
+    if episodioConsulta:
+        return render(request, 'serie/cadastrar_episodio.html', {'todosAnimes':todosAnimes})
+
+    #Create Elements
+    episodio = Episodio(nome = nome, numeroEpisodio = numeroEpisodio, video = video, animeEpisodio = objeto, fillerOuCanon = True)
     episodio.save()
 
 
+    return redirect('listagem')
 
-    return render(request, 'serie/cadastrar_episodio.html')
+
+
+
 
 def episodio(request, episodio_id):
     episodio = Episodio.objects.get(id = episodio_id)
