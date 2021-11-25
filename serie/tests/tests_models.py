@@ -13,6 +13,6 @@ class AnimeTestCase(TestCase):
     
     def test_retorno_str(self):
         a1 = Anime.objects.get(titulo = "Naruto")
-        self.assertEquals(a1.__str__(), "Naruto")
+        self.assertEquals(a1.__str__(), "")
 
 
