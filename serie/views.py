@@ -2,6 +2,14 @@ from django.shortcuts import redirect, render
 from . models import Anime, Comentario, Episodio
 from datetime import date
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 
 def index(request):
     animeSelecionados = Anime.objects.raw('SELECT * FROM serie_Anime WHERE categoria = "Ação" OR categoria = "Aventura" or categoria = "Terror"')
@@ -31,6 +39,12 @@ def anime(request, anime_id):
     comentario = request.POST.get("comentario")
     nota = request.POST.get("nota")
 
+
+    #Verificando se os campos não estão vazios antes de serem enviados
+    if comentario == None or nota == None or comentario == "" or comentario == " ":
+        return render(request, 'serie/anime.html', {'anime':anime, 'episodios':episodios, 'comentarios':comentarios})
+
+
     comentario = Comentario(review = comentario, rate = nota, anime = anime)
     comentario.save()
 
@@ -42,7 +56,8 @@ def anime(request, anime_id):
 def cadastrarAnime(request):
     if request.method != "POST":    
         return render(request, 'serie/cadastrar_anime.html')
-    
+        
+
     titulo = request.POST.get("nome")
     data = request.POST.get("data")
     categoria = request.POST.get("categoria")
@@ -50,7 +65,7 @@ def cadastrarAnime(request):
 
 
     #Script for itens NULL
-    if titulo == None and data == None and categoria == None and descricao == None:
+    if titulo == None or data == None or categoria == None or descricao == None or descricao == "" or descricao == " " or titulo =="" or titulo == " ":
         return render(request, 'serie/cadastrar_anime.html')
 
 
@@ -104,22 +119,28 @@ def cadastrarEpisodio(request):
 
 
     #Taking the object from the varieble(str) 'animeEpisodio'
-    objeto = Anime.objects.get(titulo = animeEpisodio)
+    try:
+        objeto = Anime.objects.get(titulo = animeEpisodio)
+    except Anime.DoesNotExist:
+        return render(request, 'serie/cadastrar_episodio.html', {'todosAnimes':todosAnimes})
 
 
     #Script for itens NULL
     if nome == None and numeroEpisodio == None and animeEpisodio == None and video == None:
-        return render(request, 'serie/cadastrar_anime.html')
+        return render(request, 'serie/cadastrar_episodio.html', {'todosAnimes':todosAnimes})
+
+
+    #verificar se o número do episódio é menor do que 0
+    if numeroEpisodio <= 0:
+        return render(request, 'serie/cadastrar_episodio.html', {'todosAnimes':todosAnimes})
 
 
     #Script for consults if "Episódio" exists
     try:
         episodioConsulta = Episodio.objects.get(numeroEpisodio = numeroEpisodio, animeEpisodio = objeto)
     except Episodio.DoesNotExist:
-        episodioConsulta = False
-
-    if episodioConsulta:
         return render(request, 'serie/cadastrar_episodio.html', {'todosAnimes':todosAnimes})
+
 
     #Create Elements
     episodio = Episodio(nome = nome, numeroEpisodio = numeroEpisodio, video = video, animeEpisodio = objeto, fillerOuCanon = True)
