@@ -16,10 +16,6 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: 3.9
-    - name: Instalar Dependencias
-      run: |
-        pip install pipenv
-        pipenv sync --dev
     - name: Rodar Testes Automáticos
       run: | 
         python3 manage.py test
