@@ -27,6 +27,9 @@
             padding: 2%;
             border-radius: 50px;
         }
+        form{
+            max-width: 50%;
+        }
         
     </style>
 </head>
@@ -87,10 +90,23 @@
             <br>
             <form method="POST" action="{% url 'anime' anime.id %}">
                 {% csrf_token %}
-                <label>Nos diga o que achou do anime:</label>
-                <input type="text" name="comentario">
-                <input type="number" name="nota"><br><br>
-                <input type="submit" value="Enviar avaliação">
+                <div class="form-group">
+                    <label>Uma nota de 0-5 para o anime:</label>
+                    <select class="form-control" id="exampleFormControlSelect2" name="nota" style="max-width: 15%;">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                     </select>
+                </div>
+                <div class="form-group">
+                    <label>Comente sobre o anime:</label>
+                    <textarea class="form-control" rows="3" name="comentario" placeholder="Digite o que você achou sobre o anime..."></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="form-control" value="Enviar avaliação">
+                </div>
             </form>
         </div>
     
