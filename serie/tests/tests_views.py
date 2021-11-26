@@ -34,9 +34,13 @@ class viewCadastrarAnimeTestCase(TestCase):
     def test_template_usado(self):
         response = self.client.get("/cadastrar_anime/")
         self.assertTemplateUsed(response, "serie/cadastrar_anime.html")
-
+    
+    def test_status_code_post1(self):
+        response = self.client.post("/cadastrar_anime/", {'nome': 'Naruto', 'data':"2020-06-30", "categoria":"Romance", "descricao":"Dragon Ball Z é um seriado animado com Goku e suas aventuras"})
+        self.assertEquals(response.status_code, 302)
 
 class viewCadastrarEpisodioTestCase(TestCase):
+
 
     def test_status_code_200(self):
         response = self.client.get('/cadastrar_episodio/')
@@ -45,6 +49,12 @@ class viewCadastrarEpisodioTestCase(TestCase):
     def test_template_usado(self):
         response = self.client.get("/cadastrar_episodio/")
         self.assertTemplateUsed(response, "serie/cadastrar_episodio.html")
+    
+    def test_status_code_post1(self):
+        anime = Anime(titulo = "Naruto", data_lancamento = '2020-06-30',  descricao = "Naruto é um jovem órfão habitante da Vila da Folha que sonha se tornar o quinto Hokage, o maior guerreiro e governante da vila. ... Agora Naruto vai contar com a ajuda dos colegas Sakura e Sasuke e do professor dos três, Kakashi Hatake, para perseguir seu sonho e deter os ninjas que planejam fazer mal á sua cidade.", categoria = "Romance")
+        anime.save()
+        response = self.client.post("/cadastrar_episodio/", {'nome': 'Aventuras da doidera', 'numeroEpisodio':"1", "animeEpisodio":anime, "video":""})
+        self.assertEquals(response.status_code, 302)
 
 
 class viewEpisodioTestCase(TestCase):
@@ -84,3 +94,5 @@ class viewAnimeTestCase(TestCase):
     def test_template_usado(self):
         response = self.client.get("/anime/1")
         self.assertTemplateUsed(response, "serie/anime.html")
+    
+    
