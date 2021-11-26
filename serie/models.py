@@ -16,7 +16,7 @@ class Anime(models.Model):
 
 class Comentario(models.Model):
     review = models.TextField(max_length=500)
-    rate = PositiveIntegerField()
+    rate = models.IntegerField()
     anime = models.ForeignKey(Anime, on_delete=DO_NOTHING)
 
 class Episodio(models.Model):
@@ -25,6 +25,6 @@ class Episodio(models.Model):
         return self.nome
 
     nome = models.CharField(max_length= 255)
-    numeroEpisodio = models.PositiveBigIntegerField()
+    numeroEpisodio = models.IntegerField()
     video = models.FileField(upload_to="video/%y", blank=True)
     animeEpisodio = models.ForeignKey(Anime, on_delete=DO_NOTHING)

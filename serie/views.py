@@ -2,14 +2,6 @@ from django.shortcuts import redirect, render
 from . models import Anime, Comentario, Episodio
 from datetime import date
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-
 
 def index(request):
     animeSelecionados = Anime.objects.raw('SELECT * FROM serie_Anime WHERE categoria = "Ação" OR categoria = "Aventura" or categoria = "Terror"')
@@ -113,7 +105,7 @@ def cadastrarEpisodio(request):
     
 
     nome = request.POST.get("nome")
-    numeroEpisodio = request.POST.get("numeroEpisodio")
+    numeroEpisodio = int(request.POST.get("numeroEpisodio"))
     animeEpisodio = request.POST.get("animeEpisodio")
     video = request.POST.get("video")
 
@@ -126,7 +118,7 @@ def cadastrarEpisodio(request):
 
 
     #Script for itens NULL
-    if nome == None and numeroEpisodio == None and animeEpisodio == None and video == None:
+    if nome == None or numeroEpisodio == None or animeEpisodio == None or video == None or nome == "" or nome == " ":
         return render(request, 'serie/cadastrar_episodio.html', {'todosAnimes':todosAnimes})
 
 
@@ -139,11 +131,15 @@ def cadastrarEpisodio(request):
     try:
         episodioConsulta = Episodio.objects.get(numeroEpisodio = numeroEpisodio, animeEpisodio = objeto)
     except Episodio.DoesNotExist:
+        episodioConsulta = False
+    
+    if episodioConsulta:
         return render(request, 'serie/cadastrar_episodio.html', {'todosAnimes':todosAnimes})
 
 
     #Create Elements
-    episodio = Episodio(nome = nome, numeroEpisodio = numeroEpisodio, video = video, animeEpisodio = objeto, fillerOuCanon = True)
+    numeroEpisodio = str(numeroEpisodio)
+    episodio = Episodio(nome = nome, numeroEpisodio = numeroEpisodio, video = video, animeEpisodio = objeto)
     episodio.save()
 
 
