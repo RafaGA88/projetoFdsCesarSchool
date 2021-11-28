@@ -19,6 +19,8 @@ jobs:
     - name: Instalar Dependencias
       run: |
         pip install Django
+        pip install whitenoise
+        pip install django-environ
     - name: Rodar Testes Automáticos
       run: | 
         python3 manage.py test
