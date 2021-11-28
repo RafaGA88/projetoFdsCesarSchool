@@ -4,7 +4,10 @@ from datetime import date
 
 
 def index(request):
-    animeSelecionados = Anime.objects.raw('SELECT * FROM serie_Anime WHERE categoria = "Ação" OR categoria = "Aventura" or categoria = "Terror"')
+    try:
+        animeSelecionados = Anime.objects.raw('SELECT * FROM serie_Anime WHERE categoria = "Ação" OR categoria = "Aventura" or categoria = "Terror"')
+    except Anime.DoesNotExist:
+        animeSelecionados = None
     return render(request, 'serie/principal.html',{'animes':animeSelecionados})
 
 
