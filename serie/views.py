@@ -45,9 +45,6 @@ def anime(request, anime_id):
 
     return render(request, 'serie/anime.html', {'anime':anime, 'episodios':episodios, 'comentarios':comentarios})
 
-
-
-
 def cadastrarAnime(request):
     if request.method != "POST":    
         return render(request, 'serie/cadastrar_anime.html')
