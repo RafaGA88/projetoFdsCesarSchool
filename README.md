@@ -45,10 +45,11 @@ Projeto da Cesar SCHOOL feito por alunos do 1/2 Período
   views - Todas as views do projeto, que executam as funcionalidades e renderizam os templates\
   models - Todos os modelos de dados: Anime, Episodio e Comentario\\
   
-  `Dentro da pasta 'templates' temos todos os arquivos HTML referente a cada url`
+  `Dentro da pasta 'serie/templates' temos todos os arquivos HTML referente a cada url`
   
-  
-  
+  `Dentro da pasta 'tests' contém todos os testes unitários: das views e dos models`
+   
+  `Os demais arquivos são de configurações do Django, Integração Contínua e Deploy Automático Heroku`
   
   
   
