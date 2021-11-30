@@ -1,7 +1,7 @@
-from django.http import response
-from django.test import TestCase
-from django.urls import reverse
-from ..models import Anime, Episodio, Comentario
+# from django.http import response
+# from django.test import TestCase
+# from django.urls import reverse
+# from ..models import Anime, Episodio, Comentario
 
 # class viewPrincipalTestCase(TestCase):
 
