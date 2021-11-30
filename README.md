@@ -37,4 +37,20 @@ Projeto da Cesar SCHOOL feito por alunos do 1/2 Período
  
  `python3 manage.py runserver`
  
+### `Informações sobre a documentação:`
+  
+  Dentro da pasta 'serie' temos os principais arquivos de configurações, contendo todas as urls, views e modelos\\
+  
+  `urls - Todas as urls do projeto\
+  views - Todas as views do projeto, que executam as funcionalidades e renderizam os templates\
+  models - Todos os modelos de dados: Anime, Episodio e Comentario\\`
+  
+  Dentro da pasta 'templates' temos todos os arquivos HTML referente a cada url\\
+  
+  
+  
+  
+  
+  
+ 
   
