@@ -4,12 +4,9 @@ Projeto da Cesar SCHOOL feito por alunos do 1/2 Período
 
 ### `6 integrantes de Ciência da Computação:`
   Rafael Ghinato Albuquerque (rga@cesar.school);\
-  João Antonio Sampaio Ferreira (jasf@cesar.school);\
-  João Augusto Pimentel de Melo (japm@cesar.school);\
   Israel Erlich Terceiro Neto (Ietn@cesar.school);\
-  Sara Lages Calaça (slc@cesar.school);\
   Rennan Pontes Cardoso (rpc@cesar.school);\
-  
+  João Augusto Pimentel de Melo (japm@cesar.school);\
   
 ### `Orientador/Professor:`
   Ricardo Araujo Costa - Engenheiro de Software e Doutor em Ciência da Computação UFPE
@@ -43,7 +40,7 @@ Projeto da Cesar SCHOOL feito por alunos do 1/2 Período
    
   urls - Todas as urls do projeto\
   views - Todas as views do projeto, que executam as funcionalidades e renderizam os templates\
-  models - Todos os modelos de dados: Anime, Episodio e Comentario\\
+  models - Todos os modelos de dados: Anime, Episodio e Comentario\
   
   `Dentro da pasta 'serie/templates' temos todos os arquivos HTML referente a cada url`
   
