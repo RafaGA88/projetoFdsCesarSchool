@@ -33,6 +33,6 @@ Projeto da Cesar SCHOOL feito por alunos do 1/2 Período
   
 ### `Rodar o ambiente em servidor local:`
  
- `python3 manage.py runserver
+ `python3 manage.py runserver`
  
   
