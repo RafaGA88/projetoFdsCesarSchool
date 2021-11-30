@@ -68,11 +68,9 @@
         <div class="container">
             <h3>Episódios</h3>
             {%for x in episodios%}
-                {%if x.episodios != episodio%}
-                <a href="{% url 'episodio' x.id%}">
-                    <p>{{anime.titulo}} - Episódio {{x.numeroEpisodio}} - {{x}}</p>
-                </a>
-                {%endif%}
+              <a href="{% url 'episodio' x.id%}">
+                  <p>{{anime.titulo}} - Episódio {{x.numeroEpisodio}} - {{x}}</p>
+              </a>
             {%endfor%}
         </div>
         <div class="container">

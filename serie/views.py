@@ -5,7 +5,7 @@ from datetime import date
 
 def index(request):
     try:
-        animeSelecionados = Anime.objects.raw('SELECT * FROM serie_Anime WHERE categoria = "Ação" OR categoria = "Aventura" or categoria = "Terror"')
+        animeSelecionados = Anime.objects.filter(categoria = "Aventura") 
     except Anime.DoesNotExist:
         animeSelecionados = None
     return render(request, 'serie/principal.html',{'animes':animeSelecionados})
@@ -24,9 +24,8 @@ def listagem(request):
 
 def anime(request, anime_id):
     anime = Anime.objects.get(id = anime_id)
-    episodios = Episodio.objects.raw(f'SELECT * FROM serie_Episodio WHERE animeEpisodio_id = {anime_id} ORDER BY numeroEpisodio')
-    comentarios = Comentario.objects.raw(f'SELECT * FROM serie_comentario WHERE anime_id = {anime_id}')
-
+    comentarios = Comentario.objects.filter(anime_id = anime_id)
+    episodios = Episodio.objects.filter(animeEpisodio_id = anime_id)
     if request.method != 'POST':
         return render(request, 'serie/anime.html', {'anime':anime, 'episodios':episodios, 'comentarios':comentarios})
 
@@ -151,7 +150,7 @@ def cadastrarEpisodio(request):
 
 def episodio(request, episodio_id):
     episodio = Episodio.objects.get(id = episodio_id)
-    episodios = Episodio.objects.raw(f'SELECT * FROM serie_Episodio WHERE animeEpisodio_id = {episodio_id} ORDER BY numeroEpisodio')
+    episodios = Episodio.objects.filter(animeEpisodio_id = episodio_id)
     return render(request, 'serie/episodio.html', {'episodio':episodio,'episodios':episodios})
 
 
