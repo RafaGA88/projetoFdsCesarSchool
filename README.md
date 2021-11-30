@@ -31,7 +31,8 @@ Projeto da Cesar SCHOOL feito por alunos do 1/2 Período
   sqlparse==0.4.2\
   whitenoise==5.3.0
   
-`Rodar o ambiente`
+###`Rodar o ambiente em servidor local:`
  
+ `python3 manage.py runserver
  
   
