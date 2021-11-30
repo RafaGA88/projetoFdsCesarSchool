@@ -18,6 +18,8 @@ Projeto da Cesar SCHOOL feito por alunos do 1/2 Período
 ### `Proposta do projeto:`
   Plataforma Web de Animes
   
+  
+  
 ### `Montagem de Ambiente`
   
   Ao baixar o conteúdo instale as seguintes bibliotecas:\
