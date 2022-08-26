@@ -2,11 +2,8 @@
 Projeto da Cesar SCHOOL feito por alunos do 1/2 Período
 
 
-### `6 integrantes de Ciência da Computação:`
+### `Desenvolvedor:`
   Rafael Ghinato Albuquerque (rga@cesar.school);\
-  Israel Erlich Terceiro Neto (Ietn@cesar.school);\
-  Rennan Pontes Cardoso (rpc@cesar.school);\
-  João Augusto Pimentel de Melo (japm@cesar.school);\
   
 ### `Orientador/Professor:`
   Ricardo Araujo Costa - Engenheiro de Software e Doutor em Ciência da Computação UFPE
